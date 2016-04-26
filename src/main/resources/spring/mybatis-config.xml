@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties>
+        <property name="dialect" value="MYSQL"/>
+    </properties>
+
+    <settings>
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25000"/>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Dept" type="com.jd.coo.system.domain.Dept"/>
+        <typeAlias alias="UserDept" type="com.jd.coo.system.domain.UserDept"/>
+        <typeAlias alias="Task" type="com.jd.coo.system.domain.Task"/>
+        <typeAlias alias="Role" type="com.jd.coo.permission.domain.Role"/>
+        <typeAlias alias="User" type="com.jd.coo.permission.domain.User"/>
+        <typeAlias alias="UserRoleRel" type="com.jd.coo.permission.domain.UserRoleRel"/>
+        <typeAlias alias="BsResource" type="com.jd.coo.permission.domain.BsResource"/>
+        <typeAlias alias="RoleResourceRel" type="com.jd.coo.permission.domain.RoleResourceRel"/>
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.jd.coo.common.PaginationInterceptor"/>
+    </plugins>
+
+    <mappers>
+        <mapper resource="mapper/DeptMapper.xml"/>
+        <mapper resource="mapper/UserDeptMapper.xml"/>
+        <mapper resource="mapper/TaskMapper.xml"/>
+        <mapper resource="mapper/RoleMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/UserRoleRelMapper.xml"/>
+        <mapper resource="mapper/BsResourceMapper.xml"/>
+        <mapper resource="mapper/RoleResourceRelMapper.xml"/>
+    </mappers>
+</configuration>

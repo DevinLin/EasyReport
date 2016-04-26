@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jd.coo.system.dao.TaskDao">
+    <resultMap id="BaseResultMap" type="Task">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="project_name" property="project_name" jdbcType="VARCHAR"/>
+        <result column="task_type" property="task_type" jdbcType="INTEGER"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
+        <result column="online_time" property="online_time" jdbcType="TIMESTAMP"/>
+        <result column="testing_starttime" property="testing_starttime" jdbcType="TIMESTAMP"/>
+        <result column="testing_endtime" property="testing_endtime" jdbcType="TIMESTAMP"/>
+        <result column="productMgr" property="productMgr" jdbcType="VARCHAR"/>
+        <result column="tester" property="tester" jdbcType="VARCHAR"/>
+        <result column="lastWeekSchedule" property="lastWeekSchedule" jdbcType="INTEGER"/>
+        <result column="currentSchedule" property="currentSchedule" jdbcType="INTEGER"/>
+        <result column="reason" property="reason" jdbcType="VARCHAR"/>
+        <result column="risk" property="risk" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="isDelete" property="isDelete" jdbcType="INTEGER"/>
+        <result column="create_user" property="create_user" jdbcType="VARCHAR"/>
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="update_user" property="update_user" jdbcType="VARCHAR"/>
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="expectedSchedule" property="expectedSchedule" jdbcType="INTEGER"/>
+        <result column="weekNo" property="weekNo" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            project_name,
+            task_type,
+            summary,
+            online_time,
+            testing_starttime,
+            testing_endtime,
+            productMgr,
+            tester,
+            lastWeekSchedule,
+            currentSchedule,
+            reason,
+            risk,
+            status,
+            isDelete,
+            create_time,
+            create_user,
+            update_user,
+            update_time,
+            category,
+            expectedSchedule,
+            weekNo
+        </trim>
+    </sql>
+
+    <!-- 根据Id查询 -->
+    <select id="getTaskById" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from task
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <!-- 根据上线时间查询 -->
+    <select id="getTasksByOnlineTime" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from task
+        where
+        <![CDATA[
+        online_time >= #{online_startTime,jdbcType=VARCHAR}
+        and online_time<=#{online_endTime,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <!-- 根据条件查询列表 -->
+    <select id="getTasksByCondition" resultMap="BaseResultMap" parameterType="com.jd.coo.system.condition.TaskCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from task s
+        where isDelete = 1
+        <if test="po.project_name != null and po.project_name != ''">
+            <![CDATA[   and s.project_name = #{po.project_name,jdbcType=VARCHAR}   ]]>
+        </if>
+        <if test="po.online_time != null and po.online_time != ''">
+            <![CDATA[   and s.online_time  <= #{po.online_endTime,jdbcType=VARCHAR},'%') and s.online_time >= #{po.online_startTime,jdbcType=VARCHAR} ]]>
+        </if>
+        <if test="po.create_user != null and po.create_user != ''">
+            <![CDATA[   and s.create_user  = #{po.create_user,jdbcType=VARCHAR}   ]]>
+        </if>
+        <if test="po.category != null and po.category != ''">
+            <![CDATA[   and s.category  = #{po.category,jdbcType=VARCHAR}   ]]>
+        </if>
+        <if test="po.weekNo != null and po.weekNo != ''">
+            <![CDATA[   and s.weekNo  = #{po.weekNo,jdbcType=VARCHAR}   ]]>
+        </if>
+        <if test="po.tester != null and po.tester != ''">
+            <![CDATA[   and s.tester  like CONCAT('%',#{po.tester,jdbcType=VARCHAR},'%')    ]]>
+        </if>
+    </select>
+
+    <!-- 插入实体 -->
+    <insert id="insertTask" parameterType="Task" useGeneratedKeys="true" keyProperty="id">
+        insert into task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            project_name,
+            task_type,
+            summary,
+            online_time,
+            testing_starttime,
+            testing_endtime,
+            productMgr,
+            tester,
+            lastWeekSchedule,
+            currentSchedule,
+            reason,
+            risk,
+            create_time,
+            create_user,
+            update_user,
+            update_time,
+            category,
+            expectedSchedule,
+            weekNo
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{project_name,jdbcType=VARCHAR},
+            #{task_type,jdbcType=INTEGER},
+            #{summary,jdbcType=VARCHAR},
+            #{online_time,jdbcType=TIMESTAMP},
+            #{testing_starttime,jdbcType=TIMESTAMP},
+            #{testing_endtime,jdbcType=TIMESTAMP},
+            #{productMgr,jdbcType=VARCHAR},
+            #{tester,jdbcType=VARCHAR},
+            #{lastWeekSchedule,jdbcType=INTEGER},
+            #{currentSchedule,jdbcType=INTEGER},
+            #{reason,jdbcType=VARCHAR},
+            #{risk,jdbcType=VARCHAR},
+            #{create_time,jdbcType=TIMESTAMP},
+            #{create_user,jdbcType=VARCHAR},
+            #{update_user,jdbcType=VARCHAR},
+            #{update_time,jdbcType=TIMESTAMP},
+            #{category,jdbcType=VARCHAR},
+            #{expectedSchedule,jdbcType=INTEGER},
+            #{weekNo,jdbcType=INTEGER},
+        </trim>
+    </insert>
+
+
+    <!-- 修改实体 -->
+    <update id="updateTask" parameterType="Task">
+        update dept
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="project_name != null">
+                    project_name = #{project_name,jdbcType=VARCHAR},
+                </if>
+                <if test="task_type != null">
+                    task_type = #{task_type,jdbcType=INTEGER},
+                </if>
+                <if test="summary != null">
+                    summary = #{summary,jdbcType=VARCHAR},
+                </if>
+                <if test="online_time != null">
+                    online_time = #{online_time,jdbcType=TIMESTAMP},
+                </if>
+                <if test="testing_starttime != null">
+                    testing_starttime = #{testing_starttime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="testing_endtime != null">
+                    testing_endtime = #{testing_endtime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="productMgr != null">
+                    productMgr = #{productMgr,jdbcType=VARCHAR},
+                </if>
+                <if test="tester != null">
+                    tester = #{tester,jdbcType=VARCHAR},
+                </if>
+                <if test="lastWeekSchedule !=null">
+                    lastWeekSchedule = #{lastWeekSchedule,jdbcType=INTEGER},
+                </if>
+                <if test="currentSchedule != null">
+                    currentSchedule = #{currentSchedule,jdbcType=INTEGER},
+                </if>
+                <if test="reason != null">
+                    reason = #{reason,jdbcType=VARCHAR},
+                </if>
+                <if test="risk != null">
+                    risk = #{risk,jdbcType=VARCHAR},
+                </if>
+
+                <if test="createTime != null">
+                    create_time = #{create_time,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{update_time,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{create_user,jdbcType=VARCHAR},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{update_user,jdbcType=VARCHAR},
+                </if>
+
+                <if test="category != null">
+                    category = #{category,jdbcType=VARCHAR},
+                </if>
+                <if test="expectedSchedule != null">
+                    expectedSchedule = #{expectedSchedule,jdbcType=INTEGER},
+                </if>
+                <if test="weekNo != null">
+                    weekNo = #{weekNo,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 删除实体 -->
+    <update id="deleteTask" parameterType="Long">
+		delete from  task
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+    <!-- 删除用户 -->
+    <update id="deleteTasks" parameterType="long[]">
+        update task
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                isDelete = 0
+            </trim>
+        </set>
+        where 1=1
+        and id in
+        <foreach item="item" collection="ids" index="index" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,28 @@
+#set($layout = "layout/null.vm")
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+				分配角色
+            </h4>
+        </div>
+            <div class="modal-body">
+				  <div style="margin:10px; height:400px;overflow-y:auto;" >
+					<input type="hidden" id="userId" value="${userId}"/>
+    			 <table id="grid-table_role"></table>
+				 <div id="grid-pager_role"></div>
+		</div>
+            </div>
+            <div class="modal-footer">
+				  <button id="userRole_sumbit" type="button" class="btn btn-primary">保存</button>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+    </div>
+</div>
+ <script src="#springUrl('/static/js/lib/jquery.jqGrid.min.js')"></script>
+<script src="#springUrl('/static/js/lib/grid.locale-en.js')"></script>
+<script src="#springUrl('')/static/script/permission/user/userRoleList.js"></script>
+

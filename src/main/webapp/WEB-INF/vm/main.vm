@@ -1,0 +1,105 @@
+#set($layout = "layout/null.vm")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>统一配置中心</title>
+
+    <script type="text/javascript" src="#springUrl('/static/js/lib/jquery-1.10.2.min.js')"></script>
+
+    <link href="#springUrl('/static/css/bootstrap.css')" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="#springUrl('/static/css/font-awesome.min.css')"/>
+    <link rel="stylesheet" href="#springUrl('/static/css/ztree/zTreeStyle.css')"/>
+    <link rel="stylesheet" href="#springUrl('/static/css/main.css')"/>
+
+    <link rel="stylesheet" href="#springUrl('/static/css/bootstrap.css')"/>
+    <script type="text/javascript" src="#springUrl('/static/js/lib/bootstrap.min.js')"></script>
+
+
+
+    <script src="#springUrl('/static/js/lib/jquery.jqGrid.min.js')"></script>
+    <script type="text/javascript" src="#springUrl('/static/js/index.js')"></script>
+</head>
+<body style="overflow:hidden;">
+<div class="wrap">
+    <div class="main">
+        <div class="main_header">
+            <a href="javascript:;" class="logo"></a>
+		
+		<span class="main_user-info">
+		<ul class="header-right">
+            <li class="team">
+                <a href="javascript:;">
+                    <i></i>
+                    <span>团队</span>
+                </a>
+            </li>
+            <li class="user-guide">
+                <a href="javascript:;">
+                    <i></i>
+                    <span>使用手册</span>
+                </a>
+            </li>
+
+        </ul>
+			<img src="#springUrl('/static/images/default.png')" width="34" height="34"/>
+			<span>${nick}</span>
+			<a href="#" id="loginOut" class="logout">退出</a>
+		</span>
+        </div>
+        <div class="sidebars">
+
+            <ul class="menu">
+                #foreach( $elem in $menus)
+                    <li class="job-manage">
+                        <a href="javascript:;">
+                            <i></i>
+                            <span>$elem.name</span>
+                        </a>
+                        <ul class="sub-menu active">
+                            #foreach( $elem2 in $elem.children)
+                                <li onclick=loadFrame("#springUrl('')${elem2.url}") class="active"><i
+                                        class='${elem2.className}'></i><span>$elem2.name</span></li>
+                            #end
+                        </ul>
+                    </li>
+                #end
+            </ul>
+            <div class="menu-head">
+                <a href="javascript:;" class="expand"></a>
+            </div>
+        </div>
+        <div class="main-container" style="height:580px;overflow-y:scroll;overflow-x:hidden;">
+            <div id="mainFrame"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+    loadFrame("#springUrl('/body.do')");
+    function loadFrame(url) {
+        $("#mainFrame").load(url);
+    }
+
+    $(function () {
+        $(function () {
+            $("#loginOut").click(function () {
+                if (confirm("确定要退出吗？")) {
+                    jQuery.ajax({
+                        type: 'get',
+                        url: "#springUrl('/logout.do')",
+                        dataType: 'text',
+                        cache: false,
+                        success: function (msg) {
+                            location.reload();
+                        }
+                    })
+                }
+            });
+        });
+    });
+</script>
+
+	

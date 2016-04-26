@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-lazy-init="false" default-autowire="byName">
+
+    <context:property-placeholder location="classpath:prop/spring-authen.properties" ignore-unresolvable="true"/>
+    <bean id="cookieCipherTools" class="com.jd.common.web.cookie.CookieCipherTools">
+        <property name="charsetName" value="utf-8"/>
+    </bean>
+
+    <bean id="_jdEncryptCookie" class="com.jd.common.web.cookie.JdCookie"
+          abstract="true">
+        <property name="cookieCipherTools" ref="cookieCipherTools"/>
+        <property name="encrypt" value="true"/>
+        <property name="key" value="${webapp.cookie.key}"/>
+        <property name="path" value="/"/>
+    </bean>
+
+    <bean id="singleLoginUtil" class="com.jd.coo.permission.SingleLoginUtil">
+        <property name="cookieUtils" ref="cookieUtils"/>
+        <property name="hrm_auth_cookie_name" value="${hrm.auth.cookie.name}"/>
+        <property name="login_cookie_name" value="${login.cookie.name}"/>
+    </bean>
+
+    <bean id="cookieUtils" class="com.jd.common.web.cookie.CookieUtils">
+        <property name="jdCookie">
+            <util:list>
+                <bean parent="_jdEncryptCookie">
+                    <property name="name" value="${login.cookie.name}"/>
+                </bean>
+                <bean class="com.jd.common.web.cookie.JdCookie">
+                    <property name="name" value="${hrm.auth.cookie.name}"/>
+                    <property name="domain" value="${hrm.auth.cookie.domain}"/>
+                </bean>
+            </util:list>
+        </property>
+    </bean>
+
+    <!-- 权限开始url related -->
+    <util:map id="_urlBuilderMap">
+        <entry key="homeModule">
+            <bean class="com.jd.common.web.url.UrlBuilder">
+                <constructor-arg value="http://${webapp.domain.name}/"/>
+            </bean>
+        </entry>
+        <entry key="loginUrl">
+            <bean class="com.jd.common.web.url.UrlBuilder">
+                <constructor-arg value="${login.address}"/>
+            </bean>
+        </entry>
+    </util:map>
+
+    <bean id="urlBuilders" class="com.jd.common.web.url.UrlBuilders">
+        <constructor-arg ref="_urlBuilderMap"/>
+    </bean>
+
+    <!-- hrm webservice 认证接口(调用方式一) -->
+    <bean id="soapHeaderIntercepter" class="com.jd.common.ws.SOAPHeaderIntercepter">
+        <property name="authHeader">
+            <bean class="com.jd.common.ws.AuthHeader">
+                <property name="content" value="${webapp.ws.content}"/>
+                <property name="seed" value="${webapp.ws.seed}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="jcClientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="com.jd.common.hrm.ws.DeptWebServiceSoap"/>
+        <property name="address" value="${hrm.auth.address}"/>
+        <property name="outInterceptors">
+            <list>
+                <ref local="soapHeaderIntercepter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="deptWebServiceSoap" class="com.jd.common.hrm.ws.DeptWebServiceSoap"
+          factory-bean="jcClientFactory" factory-method="create"/>
+
+    <bean id="authenProxy" class="com.jd.common.hrm.proxy.HrmAuthenProxy">
+        <property name="deptWebServiceSoap" ref="deptWebServiceSoap"/>
+    </bean>
+    <!-- 人事接口 -->
+    <bean id="hrmPrivilegeHelper" class="com.jd.common.hrm.HrmPrivilegeHelper">
+        <property name="authenProxy" ref="authenProxy"/>
+    </bean>
+
+    <!-- 权限拦截器 -->
+    <mvc:interceptors>
+        <!-- 1 -->
+        <bean id="_DotnetTicketContextInterceptor"
+              class="com.jd.common.springmvc.interceptor.DotnetTicketContextInterceptor">
+            <property name="cookieUtils" ref="cookieUtils"/>
+            <property name="dotnetAuthCookieName" value="${hrm.auth.cookie.name}"/>
+            <property name="dotnetAuthenticationKey" value="${webapp.hrm.login.auth.key}"/>
+        </bean>
+        <!-- 2 -->
+        <bean id="_HrmDotnetTicketLoginContextInterceptor"
+              class="com.jd.common.hrm.support.HrmDotnetTicketLoginContextInterceptor">
+            <property name="authenProxy" ref="authenProxy"/>
+            <property name="cookieUtils" ref="cookieUtils"/>
+            <property name="loginCookieKey" value="${login.cookie.name}"/>
+        </bean>
+        <!-- 3 -->
+        <bean id="_LoginContextInterceptor"
+              class="com.jd.common.springmvc.interceptor.LoginContextInterceptor">
+            <property name="cookieUtils" ref="cookieUtils"/>
+            <property name="loginCookieKey" value="${login.cookie.name}"/>
+            <property name="sessionTimeout" value="${session.timeout}"/>
+        </bean>
+        <!-- 4 -->
+        <bean id="_DotnetTicketRequiredInterceptor"
+              class="com.jd.common.springmvc.interceptor.DotnetTicketRequiredInterceptor">
+            <property name="urlBuilders" ref="urlBuilders"/>
+        </bean>
+    </mvc:interceptors>
+</beans>

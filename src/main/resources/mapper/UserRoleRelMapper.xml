@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jd.coo.permission.dao.UserRoleRelDao">
+    <resultMap id="BaseResultMap" type="UserRoleRel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="role_id" property="roleId" jdbcType="BIGINT"/>
+        <result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="yn" property="yn" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            user_id,
+            role_id,
+            create_time,
+            update_time,
+            create_user,
+            update_user,
+            yn,
+        </trim>
+    </sql>
+
+    <!-- 根据Id查询 -->
+    <select id="getUserRoleRel" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from user_role_rel
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据条件查询列表 -->
+    <select id="findUserRoleRelList" resultMap="BaseResultMap"
+            parameterType="com.jd.coo.permission.condition.UserRoleRelCondition">
+        select
+        <trim prefix="" suffix="" suffixOverrides=",">
+            r.id,
+            r.id as role_id,
+            r.role_name,
+            r.role_code,
+            ur.user_id,
+            ur.create_time,
+            ur.update_time,
+            ur.create_user,
+            ur.update_user
+        </trim>
+        from role r
+        left join user_role_rel ur on ur.yn = 1 and r.id= ur.role_id
+        and ur.user_id= #{po.userId,jdbcType=BIGINT}
+        <where>
+            r.yn=1
+        </where>
+    </select>
+
+
+    <!-- 插入实体 -->
+    <insert id="insertUserRoleRel" parameterType="UserRoleRel" useGeneratedKeys="true" keyProperty="id">
+        insert into user_role_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            user_id,
+            role_id,
+            create_time,
+            update_time,
+            create_user,
+            update_user,
+            yn,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{userId,jdbcType=BIGINT},
+            #{roleId,jdbcType=BIGINT},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{yn,jdbcType=TINYINT},
+        </trim>
+    </insert>
+
+
+    <!-- 插入实体 -->
+    <insert id="batchInsertUserRoleRel" parameterType="long[]" useGeneratedKeys="true" keyProperty="id">
+        insert into user_role_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            user_id,
+            role_id,
+            create_time,
+            update_time,
+            yn,
+        </trim>
+        values
+        <foreach item="item" collection="ids" index="index" separator=",">
+            (#{userId,jdbcType=BIGINT},
+            #{item,jdbcType=BIGINT},
+            now(),
+            now(),
+            1 )
+        </foreach>
+
+    </insert>
+
+
+    <!-- 删除实体 -->
+    <update id="deleteUserRoleRel" parameterType="Long">
+		delete from  user_role_rel
+		where user_id = #{userId,jdbcType=BIGINT}
+	</update>
+    <!-- 删除用户 -->
+    <update id="deleteUserRoleRelBatch" parameterType="long[]">
+        update user_role_rel
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                yn = 0
+            </trim>
+        </set>
+        where 1=1
+        and id in
+        <foreach item="item" collection="ids" index="index" open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>

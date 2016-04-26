@@ -1,0 +1,50 @@
+<div class="">
+       <div style="margin-top:10px;margin-left:10px;">
+    		<i class="icon-home home-icon"></i><a class="bru" href="#" >首页</a>/<a class="bru" href="#" >资源管理</a>
+		</div>
+		<div style="margin:10px;">
+			<div class="row">
+				 <form bsResource="form">
+					<div class="col-lg-6">
+						<div class="input-group">
+							<span class="input-group-addon">资源编号：</span>
+                           <input type="text" id="query_bsResourceCode" name="bsResourceCode" class="form-control" placeholder="">
+                         </div>
+                     </div>
+                     <div class="col-lg-6">
+                         <div class="input-group">
+							<span class="input-group-addon">资源名称：</span>
+                           <input type="text" id="query_bsResourceName" name="bsResourceName" class="form-control" placeholder="">
+						</div>
+					</div>
+  			 </form>
+		</div>
+	</div>
+	<div class="btn-group btn-group-sm" style="margin-left:10px;" >
+##		#permission("resource_add")
+			 <button id="addBsResourceBtn" name="addBsResourceBtn" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>添加节点 </button>
+##		#end
+##        #permission("resource_update")
+        	 <button id="updateBsResourceBtn" name="updateBsResourceBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-edit"></i>修改</button>
+##        #end
+##        #permission("resource_delete")
+        	 <button id="deleteBsResourceBtn" name="deleteBsResourceBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-trash"></i>删除 </button>
+##        #end
+##        #permission("resource_query")
+        	<button id="queryBsResourceBtn" name="queryBsResourceBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
+##		#end
+      </div>
+		<div style="margin:10px;">
+			 <table id="grid-table"></table>
+             <div id="grid-pager"></div>
+		</div>
+</div>
+
+<div class="modal fade" id="bsResourceModal" tabindex="-1" bsResource="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+ <link rel="stylesheet" href="#springUrl('/static/css/jquery-ui.css')" />
+	   <script src="#springUrl('/static/js/lib/jquery.jqGrid.min.js')"></script>
+        <script src="#springUrl('/static/js/lib/grid.locale-en.js')"></script>
+        <script src="#springUrl('')/static/script/permission/bsResource/bsResourceList.js"></script>

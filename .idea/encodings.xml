@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/dao/BsResourceDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/dao/RoleDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/dao/RoleResourceRelDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/dao/UserDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/dao/UserRoleRelDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/domain/BsResource.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/domain/Role.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/domain/RoleResourceRel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/domain/User.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/jd/coo/permission/domain/UserRoleRel.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/BsResourceMapper.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/RoleResourceRelMapper.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/UserRoleRelMapper.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/static/css/bootstrap-table.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/static/js/lib/bootstrap-table.js" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

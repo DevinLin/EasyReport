@@ -1,0 +1,297 @@
+#set($layout = "layout/null.vm")
+<div class="page">
+    <div class="module w-73 container">
+        <div class="module-header"><i></i><span class="module-title">容器(<b>37538</b>)</span><span
+                class="module-title m-l-40">应用(<b>3618</b>)</span>
+
+            <div class="list-box">
+                <span class="select"><span class="currs" index="0">全部</span>
+                <a class="select_action" href="javascript:;"></a>
+                <div style="clear:none"></div>
+                <ul id="1">
+                    <li><a class="select_item" index="1" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="2" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="3" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="4" href="javascript:;">全部</a></li>
+                </ul>
+                </span>
+            </div>
+        </div>
+        <div class="module-content" id="pic">
+        </div>
+    </div>
+    <div class="module w-26 container-distribute">
+        <div class="module-header"><i></i><span class="module-title">容器分布-数据中心</span>
+
+            <div class="list-box">
+                <span class="select"><span class="currs" index="0">全部</span>
+                <a class="select_action" href="javascript:;"></a>
+                <div style="clear:none"></div>
+                <ul id="1">
+                    <li><a class="select_item" index="1" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="2" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="3" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="4" href="javascript:;">全部</a></li>
+                </ul>
+                </span>
+            </div>
+        </div>
+        <div class="module-content" id="pic2">
+        </div>
+    </div>
+    <div class="module w-49 container-left">
+        <div class="module-header"><i></i><span class="module-title">容器剩余数</span>
+
+            <div class="list-box">
+                <span class="select"><span class="currs" index="0">全部</span>
+                <a class="select_action" href="javascript:;"></a>
+                <div style="clear:none"></div>
+                <ul id="1">
+                    <li><a class="select_item" index="1" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="2" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="3" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="4" href="javascript:;">全部</a></li>
+                </ul>
+                </span>
+            </div>
+        </div>
+        <div class="module-content" id="pic3">
+        </div>
+    </div>
+    <div class="module w-50 used-sort">
+        <div class="module-header"><i></i><span class="module-title">部门资源使用率排行</span>
+
+            <div class="list-box">
+                <span class="select"><span class="currs" index="0">全部</span>
+                <a class="select_action" href="javascript:;"></a>
+                <div style="clear:none"></div>
+                <ul id="1">
+                    <li><a class="select_item" index="1" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="2" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="3" href="javascript:;">全部</a></li>
+                    <li><a class="select_item" index="4" href="javascript:;">全部</a></li>
+                </ul>
+                </span>
+            </div>
+        </div>
+        <div class="module-content">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="w-60">
+                        <table class="inner">
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>保险与消费金融研发部</td>
+                                <td>0.13%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="#springUrl('/static/css/main.css')"/>
+<script src="#springUrl('')/static/script/main/body.js"></script>
+<script src="#springUrl('')/static/js/lib/echarts-all.js"></script>
+
+<script>
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['容器', '应用']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: ['香港', '廊坊', '黄村', '永丰', '太原']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '容器',
+                type: 'line',
+                stack: '总量',
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data: [120, 32, 101, 234, 90]
+            },
+            {
+                name: '应用',
+                type: 'line',
+                stack: '总量',
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data: [220, 182, 191, 234, 290]
+            }
+        ]
+    };
+    var myChart = echarts.init(document.getElementById('pic'));
+    myChart.setOption(option);
+
+    //ssssssssssssssssssss
+
+    var option2 = {
+        title: {
+            text: '',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data: ['香港', '廊坊', '黄村', '永丰', '太原']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
+                    }
+                },
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '香港'},
+                    {value: 310, name: '廊坊'},
+                    {value: 234, name: '黄村'},
+                    {value: 135, name: '永丰'},
+                    {value: 1548, name: '太原'}
+                ]
+            }
+        ]
+    };
+    var myChart2 = echarts.init(document.getElementById('pic2'));
+    myChart2.setOption(option2);
+
+    var option3 = {
+        title: {
+            text: '',
+            subtext: '构'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['4核/8G内存/40G硬盘', '8核/16G内存/40G硬盘', '16核核/32G内存/40G硬盘']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                data: ['香港', '廊坊', '黄村', '永丰', '太原']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '4核/8G内存/40G硬盘',
+                type: 'bar',
+                data: [250, 490, 390, 1190, 3390],
+            },
+            {
+                name: '8核/16G内存/40G硬盘',
+                type: 'bar',
+                data: [150, 190, 190, 190, 290],
+            },
+            {
+                name: '16核/32G内存/40G硬盘',
+                type: 'bar',
+                data: [50, 90, 90, 30, 120],
+            }
+        ]
+    };
+    var myChart3 = echarts.init(document.getElementById('pic3'));
+    myChart3.setOption(option3);
+
+</script>

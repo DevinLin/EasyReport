@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jd.coo.system.dao.DeptDao">
+	<resultMap id="BaseResultMap" type="Dept">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+		<result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+		<result column="yn" property="yn" jdbcType="TINYINT" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		<trim prefix="" suffix="" suffixOverrides=",">
+		id,
+		dept_code,
+		dept_name,
+		description,
+		status,
+		create_time,
+		update_time,
+		create_user,
+		update_user,
+		yn,
+		</trim>
+	</sql>
+	
+	<!-- 根据Id查询 -->
+	<select id="getDept" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="Base_Column_List" />
+		from dept
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+
+    <!-- 根据Id查询 -->
+    <select id="getDeptByCode" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List" />
+        from dept
+        where dept_code = #{deptCode,jdbcType=VARCHAR}
+    </select>
+    
+     <!-- 根据Id查询 -->
+    <select id="findDeptAdmin" resultType="string" parameterType="string">
+        select
+        us.user_no
+        from dept s
+        join user_dept us on s.dept_code = us.dept_code and us.admin =1  
+        where s.dept_code = #{deptCode,jdbcType=VARCHAR}
+    </select>
+    
+    
+	
+	<!-- 根据条件查询列表 -->
+	<select id="findDeptList" resultMap="BaseResultMap" parameterType="com.jd.coo.system.condition.DeptCondition">
+		select
+		<trim prefix="" suffix="" suffixOverrides=",">
+		s.id,
+		s.dept_code,
+		s.dept_name,
+		s.description,
+		status,
+		s.create_time,
+		s.update_time,
+		s.create_user,
+		s.update_user,
+		s.yn,
+		</trim>
+		from dept s
+		join user_dept us on s.dept_code = us.dept_code 
+		 <if test="po.userNo != null and po.userNo != ''">
+					   <![CDATA[   and us.user_no = #{po.userNo,jdbcType=VARCHAR}   ]]>  	
+			</if>
+		<where>   
+		  s.yn=1
+			 <if test="po.deptCode != null and po.deptCode != ''">
+					   <![CDATA[   and s.dept_code  like CONCAT('%',#{po.deptCode,jdbcType=VARCHAR},'%')   ]]>
+			</if>	
+			 <if test="po.deptName != null and po.deptName != ''">
+					   <![CDATA[   and s.dept_name  like CONCAT('%',#{po.deptName,jdbcType=VARCHAR},'%')   ]]>
+			</if>	
+		</where>
+	</select>
+
+	<!-- 插入实体 -->
+	<insert id="insertDept" parameterType="Dept" useGeneratedKeys="true" keyProperty="id">
+		insert into dept 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		dept_code,
+		dept_name,
+		description,
+		status,
+		create_time,
+		update_time,
+		create_user,
+		update_user,
+		yn,
+		</trim>
+		values 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		#{deptCode,jdbcType=VARCHAR},
+		#{deptName,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{createUser,jdbcType=VARCHAR},
+		#{updateUser,jdbcType=VARCHAR},
+		#{yn,jdbcType=TINYINT},
+		</trim>
+	</insert>
+	
+	
+	<!-- 修改实体 -->
+	<update id="updateDept" parameterType="Dept">
+		update dept
+		<set>
+			<trim prefix="" suffix="" suffixOverrides=",">
+	        <if test="id != null">
+					id = #{id,jdbcType=BIGINT},
+	      		</if>
+	        <if test="deptCode != null">
+					dept_code = #{deptCode,jdbcType=VARCHAR},
+	      		</if>
+	        <if test="deptName != null">
+					dept_name = #{deptName,jdbcType=VARCHAR},
+	      		</if>
+	        <if test="description != null">
+					description = #{description,jdbcType=VARCHAR},
+	      		</if>
+	      		<if test="status != 0">
+					status = #{description,jdbcType=TINYINT},
+	      		</if>
+	        <if test="createTime != null">
+					create_time = #{createTime,jdbcType=TIMESTAMP},
+	      		</if>
+	        <if test="updateTime != null">
+					update_time = #{updateTime,jdbcType=TIMESTAMP},
+	      		</if>
+	        <if test="createUser != null">
+					create_user = #{createUser,jdbcType=VARCHAR},
+	      		</if>
+	        <if test="updateUser != null">
+					update_user = #{updateUser,jdbcType=VARCHAR},
+	      		</if>
+			<if test="yn != 0">
+					yn = #{yn,jdbcType=TINYINT},
+	      		</if>
+			</trim>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除实体 -->
+	<update id="deleteDept" parameterType="Long">
+		delete from  dept
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	 <!-- 删除用户 -->
+    <update id="deleteDeptBatch" parameterType="long[]">
+        update dept
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                yn = 0
+            </trim>
+        </set>
+        where  1=1 
+             and id in
+             <foreach item="item" collection="ids" index="index"  open="(" separator="," close=")">
+					#{item,jdbcType=BIGINT}
+            </foreach>
+    </update>
+    
+    
+</mapper>

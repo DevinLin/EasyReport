@@ -1,0 +1,64 @@
+<div class="">
+    <div style="margin-top:10px;margin-left:10px;">
+        <i class="icon-home home-icon"></i><a class="bru" href="#">首页</a>/<a class="bru" href="#">用户管理</a>
+    </div>
+    <div style="margin:10px;">
+        <div class="row">
+            <form user="form">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">用户编号：</span>
+                        <input type="text" id="query_userCode" name="userCode" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">用户名称：</span>
+                        <input type="text" id="query_userName" name="userName" class="form-control" placeholder="">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="btn-group btn-group-sm" style="margin-left:10px;">
+    ##		#permission("user_add")
+        <button id="addUserBtn" name="addUserBtn" type="button" class="btn btn-primary"><i
+                class="glyphicon glyphicon-plus"></i>新建
+        </button>
+    ##		#end
+    ##        #permission("user_update")
+        <button id="updateUserBtn" name="updateUserBtn" type="button" class="btn  btn-primary"><i
+                class="glyphicon glyphicon-edit"></i>修改
+        </button>
+    ##        #end
+    ##        #permission("user_delete")
+        <button id="deleteUserBtn" name="deleteUserBtn" type="button" class="btn  btn-primary"><i
+                class="glyphicon glyphicon-trash"></i>删除
+        </button>
+    ##        #end
+    ##        #permission("user_role")
+        <button id="userRoleListBtn" name="userRoleListBtn" type="button" class="btn  btn-primary"><i
+                class="glyphicon glyphicon-cog"></i>分配角色
+        </button>
+    ##       #end
+    ##        #permission("user_query")
+        <button id="queryUserBtn" name="queryUserBtn" type="button" class="btn  btn-primary"><i
+                class="glyphicon glyphicon-search"></i>查询
+        </button>
+    ##        #end
+
+
+    </div>
+
+    <div style="margin:10px;">
+        <table id="grid-table"></table>
+        <div id="grid-pager"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="userModal" tabindex="-1" user="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<script src="#springUrl('/static/js/lib/jquery.jqGrid.min.js')"></script>
+<script src="#springUrl('/static/js/lib/grid.locale-en.js')"></script>
+<script src="#springUrl('')/static/script/permission/user/userList.js"></script>

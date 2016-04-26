@@ -1,0 +1,53 @@
+<div class="">
+       <div style="margin-top:10px;margin-left:10px;">
+    		<i class="icon-home home-icon"></i><a class="bru" href="#" >首页</a>/<a class="bru" href="#" >角色管理</a>
+		</div>
+		<div style="margin:10px;">
+			<div class="row">
+				 <form role="form">
+					<div class="col-lg-6">
+						<div class="input-group">
+							<span class="input-group-addon">角色编号：</span>
+                           <input type="text" id="query_roleCode" name="roleCode" class="form-control" placeholder="">
+                         </div>
+                     </div>
+                     <div class="col-lg-6">
+                         <div class="input-group">
+							<span class="input-group-addon">角色名称：</span>
+                           <input type="text" id="query_roleName" name="roleName" class="form-control" placeholder="">
+						</div>
+					</div>
+  			 </form>
+		</div>
+	</div>
+	<div class="btn-group btn-group-sm" style="margin-left:10px;" >
+##		#permission("role_add")
+		 <button id="addRoleBtn" name="addRoleBtn" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>新建 </button>
+##		#end
+##		#permission("role_update")
+			 <button id="updateRoleBtn" name="updateRoleBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-edit"></i>修改</button>
+##		#end
+##		#permission("role_delete")
+			  <button id="deleteRoleBtn" name="deleteRoleBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-trash"></i>删除 </button>
+##		#end
+##		#permission("role_resource")
+			  <button id="bsResourceListBtn" name="bsResourceListBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-cog"></i>分配资源</button>
+##		#end
+##		#permission("role_query")
+			 <button id="queryRoleBtn" name="queryRoleBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
+##		#end
+		
+      </div>
+		
+		<div style="margin:10px;">
+			 <table id="grid-table"></table>
+             <div id="grid-pager"></div>
+		</div>
+</div>
+
+<div class="modal fade" id="roleModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+	    <script src="#springUrl('/static/js/lib/jquery.jqGrid.min.js')"></script>
+        <script src="#springUrl('/static/js/lib/grid.locale-en.js')"></script>
+        <script src="#springUrl('')/static/script/permission/role/roleList.js"></script>

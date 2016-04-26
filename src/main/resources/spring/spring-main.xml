@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!--<value>classpath*:authen.properties</value>-->
+                <value>classpath*:prop/jdbc.properties</value>
+                <value>classpath*:important.properties</value>
+                <!--<value>classpath*:prop/zk.properties</value>-->
+            </list>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven/>
+
+    <!-- 扫描文件（自动将servicec层注入）-->
+    <context:component-scan base-package="com.jd.coo"/>
+
+    <import resource="classpath:spring/spring-dao.xml"/>
+
+
+
+    <!--<bean id="hrUserCfgBean" class="com.jd.coo.system.domain.HrUserCfgBean">-->
+    <!--<property name="appCode" value="${mvn.hrUser.cfg.appCode}"/>-->
+    <!--<property name="businessId" value="${mvn.hrUser.cfg.businessId}"/>-->
+    <!--<property name="safetyKey" value="${mvn.hrUser.cfg.safetyKey}"/>-->
+    <!--</bean>-->
+
+    <!-- ucc 配置 -->
+    <!--<bean id="zkProxy" class="com.jd.ucc.zk.ZkProxy">-->
+    <!--<constructor-arg index="0" type="java.lang.String">-->
+    <!--<value>${web.zk.server}</value>-->
+    <!--</constructor-arg>-->
+    <!--<constructor-arg index="1" type="int">-->
+    <!--<value>${web.zk.session.timeout}</value>-->
+    <!--</constructor-arg>-->
+    <!--<constructor-arg index="2" type="int">-->
+    <!--<value>${web.zk.connection.timeout}</value>-->
+    <!--</constructor-arg>-->
+    <!--</bean>-->
+</beans>

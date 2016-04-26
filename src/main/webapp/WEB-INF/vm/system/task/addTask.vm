@@ -1,0 +1,114 @@
+#set($layout = "layout/null.vm")
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                #if($task)
+                    任务更新
+                #else
+                    任务新增
+                #end
+            </h4>
+        </div>
+        <form id="TaskEdit_form" method="post"class="form-horizontal" >
+            <div class="modal-body">
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label ">项目名称：</label>
+                    <div class="col-sm-9">
+                        <input type="hidden" id="id" name="id" value="$!{task.id}" />
+                        <input type="text" class="form-control" id="project_name" name="project_name" value="$!{task.project_name}" #if($task) readonly =true #end required=true  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">任务类型：</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="task_type">
+                            <option value="1" selected>项目</option>
+                            <option value="2">小需求</option>
+                            <option value="3">联调</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">功能名称：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="summary" name="summary" value="$!{task.summary}" required=true  />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">上线时间：</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="online_Time" name="online_Time" class="form-control form_datetime" placeholder="" data-date-format="yyyy-mm-dd hh:ii">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">测试起始时间：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control form_datetime" id="testing_starttime" name="testing_starttime" value="$!{task.testing_starttime}" required=true data-date-format="yyyy-mm-dd hh:ii" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">测试结束时间：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control form_datetime" id="testing_endtime" name="testing_endtime" value="$!{task.testing_endtime}" required=true data-date-format="yyyy-mm-dd hh:ii" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">产品经理：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="productMgr" name="productMgr" value="$!{task.productMgr}" required=true  />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">测试人：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="tester" name="tester" value="$!{task.tester}" required=true  />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">上周进度：</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" min="0" max="100" id="lastWeekSchedule" name="lastWeekSchedule" value="$!{task.lastWeekSchedule}" required=true  />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">当前进度：</label>
+                    <div class="col-sm-9">
+                        <input type="number" min="0" max="100" class="form-control" id="currentSchedule" name="currentSchedule" value="$!{task.currentSchedule}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">延迟原因：</label>
+                    <div class="col-sm-9">
+                        <textarea  type="text" class="form-control" id="reason" name="reason" value="$!{task.reason}" rows="2"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">风险：</label>
+                    <div class="col-sm-9">
+                        <textarea  type="text" class="form-control" id="risk" name="risk" value="$!{task.risk}" rows="2" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="task_sumbit" type="button" class="btn btn-primary">保存</button>
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="#springUrl('/static/script/system/task/editTask.js')"></script>
+<script type="text/javascript" src="#springUrl('/static/js/lib/jquery.form.js')"></script>

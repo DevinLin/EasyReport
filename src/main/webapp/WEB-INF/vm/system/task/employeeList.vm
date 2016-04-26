@@ -1,0 +1,61 @@
+<div class="">
+    <div style="margin-top:10px;margin-left:10px;">
+        <i class="icon-home home-icon"></i><a class="bru" href="#" >首页</a>/<a class="bru" href="#" >个人周报</a>
+    </div>
+    <div style="margin:10px;">
+        <div class="row">
+            <form user="form">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">上线起始时间：</span>
+                        <input type="text" id="online_startTime" name="online_startTime" readonly class="form-control form_datetime" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">上线结束时间：</span>
+                        <input type="text" id="online_endTime" name="online_endTime" class="form-control form_datetime"  readonly placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">测试人员：</span>
+                        <input type="text" id="tester" name="tester" class="form-control" placeholder="">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="btn-group btn-group-sm" style="margin-left:10px;" >
+##        #permission("user_add")
+        <button id="addTask" name="addTask" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>新建</button>
+##    #end
+##        #permission("user_update")
+        <button id="updateTask" name="updateTask" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-edit"></i>修改</button>
+##    #end
+##        #permission("user_delete")
+        <button id="deleteTaskBtn" name="deleteTaskBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-trash"></i>删除 </button>
+##    #end
+##        #permission("user_role")
+        <button id="importXls" name="importXls" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-upload"></i>xls导入</button>
+        <button id="exportXls" name="exportXls" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-download-alt"></i>导出xls</button>
+        <button id="viewHistory" name="viewHistory" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-road"></i>查看历史</button>
+##    #end
+##        #permission("user_query")
+        <button id="queryTaskBtn" name="queryTaskBtn" type="button" class="btn  btn-primary"><i class="glyphicon glyphicon-search"></i>查询</button>
+##    #end
+    </div>
+
+    <div style="margin:10px;width: 100%;">
+        <table id="employee-grid-table"></table>
+        <div id="employee-grid-pager"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="taskModal" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript" src="#springUrl('/static/script/common/selectRel.js')"></script>
+<script src="#springUrl('/static/script/system/task/employeeList.js')"></script>
+<link rel="stylesheet" href="#springUrl('/static/css/bootstrap-datetimepicker.min.css')"/>
+<script src="#springUrl('/static/js/date-time/bootstrap-datetimepicker.min.js')"></script>
+<script src="#springUrl('/static/js/lib/grid.locale-en.js')"></script>

@@ -1,0 +1,66 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+      <title>数据结转平台</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+
+      <script type="text/javascript" src="#springUrl('/static/js/lib/jquery-1.10.2.min.js')"></script>
+      <link rel="stylesheet" href="#springUrl('/static/css/font-awesome.min.css')" />
+      <!--[if IE 7]>
+      <link rel="stylesheet" href="#springUrl('/static/css/font-awesome-ie7.min.css')" />
+      <![endif]-->
+      <link rel="stylesheet" href="#springUrl('/static/css/ui.jqgrid.css')" />
+      <link rel="stylesheet" href="#springUrl('/static/css/ace.min.css')" />
+
+      <link href="#springUrl('/static/css/bootstrap.css')" rel="stylesheet" type="text/css">
+      <script type="text/javascript" src="#springUrl('/static/js/lib/bootstrap.min.js')"></script>
+      <link rel="stylesheet" href="#springUrl('/static/css/bootstrap-table.css')"/>
+      <script type="text/javascript" src="#springUrl('/static/js/lib/bootstrap-table.js')"></script>
+      <script type="text/javascript" src="#springUrl('/static/js/lib/bootstrap-table-zh-CN.js')"></script>
+
+      <link href="#springUrl('/static/css/common.css')" rel="stylesheet" type="text/css">
+      <link href="#springUrl('/static/css/bootstrap-datetimepicker.min.css')" rel="stylesheet" type="text/css">
+      <link href="#springUrl('/static/css/cluetip.css')" rel="stylesheet" type="text/css">
+      <link href="#springUrl('/static/css/bootstrapValidator.min.css')" rel="stylesheet" type="text/css"/>
+      <link rel="stylesheet" href="#springUrl('/static/css/ztree/zTreeStyle.css')" />
+      <script type="text/javascript" src="#springUrl('/static/js/date-time/bootstrap-datetimepicker.js')"></script>
+      <script type="text/javascript" src="#springUrl('/static/js/date-time/bootstrap-datetimepicker.zh-CN.js')"></script>
+      <script type="text/javascript" src="#springUrl('/static/js/lib/bootbox.min.js')"></script>
+	  <script type="text/javascript" src="#springUrl('/static/js/lib/common.js')"></script>
+	  <script type="text/javascript" src="#springUrl('/static/js/lib/jquery.form.js')"></script>
+
+      <script src="#springUrl('/static/js/lib/jquery.validate.js')"></script>
+      <script src="#springUrl('/static/js/lib/jquery.metadata.js')"></script>
+      <script src="#springUrl('/static/js/lib/jquery.validate_msg_cn.js')"></script>
+
+      <script src="#springUrl('/static/js/lib/jquery.cluetip.js')"></script>
+      <script src="#springUrl('/static/js/lib/validate_customer_extend.js')"></script>
+	  <script src="#springUrl('/static/js/lib/jquery.fn.miniwms.extend.js')"></script>
+
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+      <script src="#springUrl('/static/js/lib/html5shiv.js')"></script>
+      <script src="#springUrl('/static/js/lib/respond.min.js')"></script>
+      <![endif]-->
+
+      <script type="text/javascript" src="#springUrl('/static/js/lib/bootstrapValidator.min.js')"></script>
+      <script type="text/javascript" src="#springUrl('/static/js/lib/zh_CN.js')"></script>
+      <script type="text/javascript" src="#springUrl('/static/js/lib/jquery.blockUI.js')"></script>
+
+  </head>
+  <body>
+       $screen_content
+	   <!-- 通用系统提示(开始) -->
+    <div class="modal fade" id="sysAlert"  aria-hidden="true">
+        <div class="modal-dialog">
+            <!-- 警告(开始) -->
+            <div id="sysInnerWarn">
+                <strong id="sysInnerInfo"></strong><label id="lblSysInfo"></label>
+            </div>
+            <!-- 警告(结束) -->
+        </div>
+    </div>
+  </body>
+</html>
+
